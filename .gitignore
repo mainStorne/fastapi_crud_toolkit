@@ -1,6 +1,7 @@
 .mypy_cache/
 .venv/
 .vscode/
+.idea
 dist/
 fastapi_sqlalchemy_toolkit.egg-info/
 .pypirc
