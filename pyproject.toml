@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fastapi_crud_toolkit"
+version = "0.0.1"
+authors = [
+    { name="Dmitry Bevz", email="dbevzpr@mail.ru"}
+]
+description = "The package for automatically performing crud operations"
+requires-python = ">=3.11"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
