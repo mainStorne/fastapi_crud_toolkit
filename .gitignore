@@ -1,0 +1,7 @@
+.mypy_cache/
+.venv/
+.vscode/
+dist/
+fastapi_sqlalchemy_toolkit.egg-info/
+.pypirc
+site/
