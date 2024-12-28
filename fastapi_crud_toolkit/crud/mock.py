@@ -31,7 +31,7 @@ class MockCrudAPIRouter(ABC, CRUDTemplate):
     def _patch(self):
         patch_schema = self.update_schema
 
-        @self.patch('/{%s}' % self.resource_identifier, response_model=self.read_schema)
+        @self.patch('/{%s}' % self.resource_id, response_model=self.read_schema)
         async def func(
                 obj: patch_schema,
                 resource=Depends(self.get_or_404()),
@@ -41,7 +41,7 @@ class MockCrudAPIRouter(ABC, CRUDTemplate):
 
     def _get_one(self):
         @self.get(
-            '/{%s}' % self.resource_identifier,
+            '/{%s}' % self.resource_id,
             response_model=self.read_schema,
             responses={**not_found_response}
 
@@ -51,7 +51,7 @@ class MockCrudAPIRouter(ABC, CRUDTemplate):
 
     def _delete_one(self):
         @self.delete(
-            '/{%s}' % self.resource_identifier,
+            '/{%s}' % self.resource_id,
             response_model=self.read_schema,
             responses={**not_found_response}
 

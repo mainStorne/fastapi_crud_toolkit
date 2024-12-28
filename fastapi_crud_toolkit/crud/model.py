@@ -13,18 +13,20 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .template import CRUDTemplate
 from typing import TypeVar
 
-
 Resource = TypeVar('Resource')
 
 
 class CrudAPIRouter(CRUDTemplate):
 
-    def __init__(self, read_schema: Type[BaseModel], manager: ModelManager,
+    def __init__(self, read_schema: Type[BaseModel],
                  create_schema: Type[BaseModel], update_schema: Type[BaseModel],
+                 manager: ModelManager,
+                 get_session: Callable[[], AsyncSession],
                  resource_id: str = 'id',
                  **kwargs: Any):
-        self.resource_identifier = resource_id
-        super().__init__(read_schema, manager, get_session, create_schema, update_schema, **kwargs)
+        super().__init__(read_schema, create_schema, update_schema, resource_id, **kwargs)
+        self.manager = manager
+        self.get_session = get_session
 
     def _get_all(self):
         @self.get(
@@ -37,7 +39,7 @@ class CrudAPIRouter(CRUDTemplate):
 
     def _get_one(self):
         @self.get(
-            '/{%s}' % self.resource_identifier,
+            '/{%s}' % self.resource_id,
             response_model=self.read_schema,
             responses={**not_found_response}
 

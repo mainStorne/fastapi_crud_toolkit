@@ -17,7 +17,7 @@ class CRUDTemplate(APIRouter):
             **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
-        self.resource_identifier = resource_id
+        self.resource_id = resource_id
         self.read_schema = read_schema
         self.create_schema = create_schema
         self.update_schema = update_schema

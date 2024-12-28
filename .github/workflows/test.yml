@@ -1,0 +1,22 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main  # Триггер на пуш в ветку main
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build Image
+        run: docker build -f tests/Dockerfile -t tests .
+      - name: Run Tests in Container
+        run: docker run --rm tests
+

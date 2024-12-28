@@ -15,7 +15,7 @@ class UsersRouter(MockCrudAPIRouter):
 
     def _get_one(self):
         @self.get(
-            '/{%s}' % self.resource_identifier,
+            '/{%s}' % self.resource_id,
             response_model=self.read_schema,
             responses={**not_found_response}
 
