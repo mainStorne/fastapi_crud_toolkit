@@ -4,6 +4,7 @@ from pydantic import ValidationError
 from fastapi_crud_toolkit.openapi_responses import bad_request_response, missing_token_or_inactive_user_response, \
     forbidden_response, not_found_response
 from ...schemas.users import ReadUser, CreateUser, UpdateUser
+from fastapi_crud_toolkit.utils import FormBody
 from fastapi_crud_toolkit import MockCrudAPIRouter
 
 
@@ -73,7 +74,7 @@ class UsersRouter(MockCrudAPIRouter):
         @self.patch('/me', response_model=ReadUser,
                     responses={**missing_token_or_inactive_user_response, **bad_request_response})
         async def func(
-                user=Depends(update_schema.as_form),
+                user=Depends(FormBody.as_form()),
         ):
             """
             This function is used to update the current user. It takes in the following parameters:
