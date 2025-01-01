@@ -39,8 +39,8 @@ jobs:
         run: >-
           pip install poetry==$poetry_version
       - name: Set up the pypi token
-        run: >-
-          poetry config pypi-token.pypi $PYPI_TOKEN
+        run: |
+          poetry config pypi-token.pypi $PYPI_TOKEN && \
           poetry publish --build 
 
 
