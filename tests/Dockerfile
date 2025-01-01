@@ -20,7 +20,7 @@ FROM base as runner
 WORKDIR /app
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 COPY tests ./tests
-COPY fastapi_toolkit ./fastapi_toolkit
+COPY fastapi_libkit ./fastapi_libkit
 COPY pyproject.toml .
 
 ENTRYPOINT [ "/bin/sh", "-c", "pytest" ]
