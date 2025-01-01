@@ -23,7 +23,7 @@ jobs:
   publish-to-pypi:
     name: Publish to PyPI
     needs: [tests]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     env:
       poetry_version: 1.8.5
