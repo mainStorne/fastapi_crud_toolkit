@@ -1,0 +1,3 @@
+
+class BatchPermittedException(Exception):
+    pass

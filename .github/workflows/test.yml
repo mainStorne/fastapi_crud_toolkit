@@ -20,3 +20,28 @@ jobs:
       - name: Run Tests in Container
         run: docker run --rm tests
 
+  publish-to-pypi:
+    name: Publish to PyPI
+    needs: [tests]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      poetry_version: 1.8.5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install pypa/build
+        run: >-
+          pip install poetry==$poetry_version
+      - name: Set up the pypi token
+        run: >-
+          poetry config pypi-token.pypi $PYPI_TOKEN
+          poetry publish --build 
+
+
+
