@@ -11,7 +11,7 @@ pythonpath = [
 
 [tool.poetry]
 name = "fastapi-libkit"
-version = "0.1.1"
+version = "0.1.2"
 description = "Toolkit for FastAPI"
 authors = ["bevzd <dbevzpr@mail.ru>"]
 readme = "README.md"
