@@ -18,10 +18,11 @@ readme = "README.md"
 
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 fastapi-permissions = "^0.2.7"
 fastapi = "^0.115.6"
 python-multipart = "^0.0.20"
+uvicorn = "^0.34.0"
 
 
 [tool.poetry.group.tests.dependencies]
