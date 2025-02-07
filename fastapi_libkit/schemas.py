@@ -3,9 +3,13 @@ from types import GenericAlias, UnionType
 
 from fastapi.datastructures import UploadFile
 from fastapi import Form
+from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from pydantic_core import PydanticUndefined
-from typing import Self, get_args
+from typing import Self, get_args, Type
+
+modelT = Type[BaseModel]
+
 
 
 def check_type_in_annotation(_type: type, annotation: type):
@@ -47,3 +51,29 @@ class FormBodyMixin:
 
         wrapper.__signature__ = _signature.replace(parameters=parameters)
         return wrapper
+
+
+def as_form(model: modelT):
+    def wrapper(**kwargs):
+        return model(**kwargs)
+
+    _signature = signature(wrapper)
+
+    parameters = []
+    for field_name, field in model.model_fields.items():  # type: ignore
+        field: FieldInfo
+        if check_type_in_annotation(UploadFile, field.annotation):
+            default = field.default if field.default is not PydanticUndefined else Parameter.empty
+        else:
+            default = Form(default=field.default)
+        parameters.append(
+            Parameter(
+                field_name,
+                kind=Parameter.KEYWORD_ONLY,
+                default=default,
+                annotation=field.annotation,
+            )
+        )
+
+    wrapper.__signature__ = _signature.replace(parameters=parameters)
+    return wrapper
